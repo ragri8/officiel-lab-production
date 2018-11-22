@@ -1,1 +1,1 @@
-web: java  -Dstore=hibernate -Dpromo=false -Dmode=demo -Dport=7222
+web: java  -Dstore=hibernate -Dpromo=false -Dmode=none -Dport=7222
