@@ -21,6 +21,7 @@ import org.glassfish.jersey.servlet.ServletContainer;
 
 public class CartServer implements Runnable {
     private static final int PORT = 7222;
+    public static final String PORT_PARAMETER = "port";
 
     public static void main(String[] args) {
         new CartServer().run();
@@ -35,8 +36,17 @@ public class CartServer implements Runnable {
         new ApplicationContext().apply();
     }
 
+    private Integer getPort() {
+        try {
+            return Integer.parseInt(System.getProperty(PORT_PARAMETER));
+        } catch (Exception e) {
+            return PORT;
+        }
+    }
+
     private void startServer() {
-        Server server = new Server(PORT);
+        Integer port = getPort();
+        Server server = new Server(port);
         ServletContextHandler contextHandler = new ServletContextHandler(server, "/");
         contextHandler.addFilter(EntityManagerContextFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST));
 
